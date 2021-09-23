@@ -38,3 +38,36 @@
   align-items: center;
   margin-right: 5px;
 }
+
+.body .kakao_login {
+  width: 150px;
+  height: 30px;
+  background-color: #f9e000;
+  border: none;
+  border-radius: 5px;
+  margin: auto;
+}
+
+.body .instagram_login {
+  display: block;
+  margin: auto;
+  margin-top: 10px;
+  background-color: rgb(131, 58, 180);
+  width: 150px;
+  height: 30px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.body .kakao_logout {
+  border: none;
+  background-color: transparent;
+  border-bottom: 1px solid grey;
+  padding: 0;
+  position: absolute;
+  bottom: 100px;
+  margin: auto;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
