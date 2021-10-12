@@ -1,0 +1,31 @@
+{
+  "name": "kibackgroundimage",
+  "version": "1.0.0",
+  "description": "성균관대학교 한상미, 신현지 졸업작품",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hansmee/KIBackgroundImage.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hansmee/KIBackgroundImage/issues"
+  },
+  "homepage": "https://github.com/hansmee/KIBackgroundImage#readme",
+  "dependencies": {
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.9.4",
+    "@types/react": "^17.0.22",
+    "@types/react-dom": "^17.0.9",
+    "axios": "^0.21.4",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-generator": "^4.16.1",
+    "typescript": "^4.4.3"
+  }
+}
