@@ -1,7 +1,7 @@
-import axios from "axios";
-import "./css/App.css";
-import React, { useEffect } from "react";
-import { useState } from "react";
+import axios from 'axios';
+import './css/App.css';
+import React, { useEffect } from 'react';
+import { useState } from 'react';
 // import InstagramLogin from 'react-instagram-login';
 
 declare var Kakao: any;
@@ -16,7 +16,7 @@ export default function App() {
       .then((res) => {
         console.log(res);
       });
-    axios.get("/api").then((res) => {
+    axios.get('/api').then((res) => {
       console.log(res.data);
     });
   };
@@ -26,11 +26,14 @@ export default function App() {
   useEffect(() => {
     /*global Kakao*/
     callApi();
-    Kakao.init(process.env.REACT_APP_KAKAO_API_KEY);
-    Kakao.isInitialized();
+
+    // 초기화를 안 했을 경우에만 초기화 진행
+    !Kakao.isInitialized() && Kakao.init(process.env.REACT_APP_KAKAO_API_KEY);
+
     if (Kakao.Auth.getAccessToken()) {
       setKakaoLogin(true);
     }
+
     const config = {
       clientId: process.env.INSTAGRAM_CLIENT_ID,
       secret: process.env.INSTAGRAM_CLIENT_SECRET,
@@ -46,7 +49,7 @@ export default function App() {
   };
 
   const showAgreement = () => {
-    const scope = "profile_nickname, profile_image";
+    const scope = 'profile_nickname, profile_image';
     let loginResult = false;
     Kakao.Auth.login({
       scope,
@@ -63,19 +66,21 @@ export default function App() {
       },
     });
   };
+
   const clickInsta = () => {
     const INSTAGRAM_AUTH_URL = `https://api.instagram.com/oauth/authorize/?client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_INSTAGRAM_SECTRET}&redirect_uri=${process.env.REACT_APP_CALLBAK_URL}&response_type=code&scope=user_profile,user_media`;
-    window.open(INSTAGRAM_AUTH_URL, "_blank");
+    window.open(INSTAGRAM_AUTH_URL, '_blank');
   };
 
   const handleLogout = () => {
     if (Kakao.Auth.getAccessToken()) {
-      console.log("카카오 인증 엑세스 토큰 존재", Kakao.Auth.getAccessToken());
+      console.log('카카오 인증 엑세스 토큰 존재', Kakao.Auth.getAccessToken());
       Kakao.Auth.logout(() => {
-        console.log("카카오 로그아웃 완료", Kakao.Auth.getAccessToken());
+        console.log('카카오 로그아웃 완료', Kakao.Auth.getAccessToken());
       });
     }
   };
+
   return (
     <div className="App">
       <div className="App-header">KIBackgroundImage</div>
@@ -85,7 +90,7 @@ export default function App() {
             className="kakao_login"
             disabled={kakaoLogin}
             onClick={showAgreement}
-            title={kakaoLogin ? "이미 로그인되어있습니다." : ""}
+            title={kakaoLogin ? '이미 로그인되어있습니다.' : ''}
           >
             카카오톡 로그인하기
           </button>
