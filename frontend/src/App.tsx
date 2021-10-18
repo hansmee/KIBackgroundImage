@@ -26,11 +26,14 @@ export default function App() {
   useEffect(() => {
     /*global Kakao*/
     callApi();
-    Kakao.init(process.env.REACT_APP_KAKAO_API_KEY);
-    Kakao.isInitialized();
+
+    // 초기화를 안 했을 경우에만 초기화 진행
+    !Kakao.isInitialized() && Kakao.init(process.env.REACT_APP_KAKAO_API_KEY);
+
     if (Kakao.Auth.getAccessToken()) {
       setKakaoLogin(true);
     }
+
     const config = {
       clientId: process.env.INSTAGRAM_CLIENT_ID,
       secret: process.env.INSTAGRAM_CLIENT_SECRET,
