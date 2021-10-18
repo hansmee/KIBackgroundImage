@@ -7,8 +7,7 @@ import { useState } from 'react';
 declare var Kakao: any;
 
 export default function App() {
-  const [instaId, setInstaId] = useState<string>('');
-
+  const [kakaoLogin, setKakaoLogin] = useState<boolean>(false);
   const callApi = async () => {
     axios
       .get(
@@ -25,10 +24,13 @@ export default function App() {
   const apiKey: string | undefined = process.env.REACT_APP_KAKAO_API_KEY;
 
   useEffect(() => {
+    /*global Kakao*/
     callApi();
     Kakao.init(process.env.REACT_APP_KAKAO_API_KEY);
     Kakao.isInitialized();
-
+    if (Kakao.Auth.getAccessToken()) {
+      setKakaoLogin(true);
+    }
     const config = {
       clientId: process.env.INSTAGRAM_CLIENT_ID,
       secret: process.env.INSTAGRAM_CLIENT_SECRET,
@@ -41,10 +43,6 @@ export default function App() {
     const nickname = res.profile.properties.nickname;
     const thumbnailUrl = res.profile.properties.thumbnail_image;
     const profileUrl = res.profile.properties.profile_image;
-  };
-
-  const handleChangeInstaID = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInstaId(e.target.value);
   };
 
   const showAgreement = () => {
@@ -85,7 +83,12 @@ export default function App() {
       <div className="App-header">KIBackgroundImage</div>
       <div className="body">
         <div>
-          <button className="kakao_login" onClick={showAgreement}>
+          <button
+            className="kakao_login"
+            disabled={kakaoLogin}
+            onClick={showAgreement}
+            title={kakaoLogin ? '이미 로그인되어있습니다.' : ''}
+          >
             카카오톡 로그인하기
           </button>
           <button className="instagram_login" onClick={clickInsta}>
