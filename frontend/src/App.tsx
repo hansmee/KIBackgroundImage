@@ -1,6 +1,6 @@
 import axios from 'axios';
 import './css/App.css';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import Album from './Album';
 // import InstagramLogin from 'react-instagram-login';
@@ -25,8 +25,6 @@ export default function App() {
     });
   };
 
-  const apiKey: string | undefined = process.env.REACT_APP_KAKAO_API_KEY;
-
   useEffect(() => {
     /*global Kakao*/
     callApi();
@@ -39,28 +37,13 @@ export default function App() {
       setKakaoLogin(true);
       getKakaoProfile();
     }
-
-    const config = {
-      clientId: process.env.INSTAGRAM_CLIENT_ID,
-      secret: process.env.INSTAGRAM_CLIENT_SECRET,
-      url: process.env.INSTAGRAM_CALLBACK_URL,
-    };
   }, []);
-
-  const handleKakaoLoginSuccess = (res: any) => {
-    console.log(res);
-    const nickname = res.properties.nickname;
-    const thumbnailUrl = res.properties.thumbnail_image;
-    const profileUrl = res.properties.profile_image;
-    console.log(nickname, thumbnailUrl, profileUrl);
-    setKakaoProfileImg(profileUrl);
-  };
 
   const getKakaoProfile = () => {
     Kakao.API.request({
       url: '/v2/user/me',
       success: (res: any) => {
-        handleKakaoLoginSuccess(res);
+        res.properties?.profile_image && setKakaoProfileImg(res.properties.profile_image);
       },
       fail: (error: any) => {
         console.log(error);
@@ -70,7 +53,6 @@ export default function App() {
 
   const showAgreement = () => {
     const scope = 'profile_nickname, profile_image';
-    let loginResult = false;
     Kakao.Auth.login({
       scope,
       // success는 인증 정보를 응답(response)으로 받는다.
@@ -78,8 +60,6 @@ export default function App() {
         //카카오 SDK에 사용자 토큰을 설정한다.
         Kakao.Auth.setAccessToken(response.access_token);
         console.log(`is set?: ${Kakao.Auth.getAccessToken()}`);
-        loginResult = true;
-        // 성공 사항에 따라 페이지를 수정하기 위한 setState
         getKakaoProfile();
       },
       fail: function (error: any) {
