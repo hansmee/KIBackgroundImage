@@ -1,6 +1,6 @@
 import './css/Album.css';
 
-export default (props: any) => {
+export default function Album(props: any) {
   const { kakaoProfileImg, instaImgs } = props;
   console.log(kakaoProfileImg, instaImgs);
 
@@ -13,4 +13,4 @@ export default (props: any) => {
         ))}
     </div>
   );
-};
+}
