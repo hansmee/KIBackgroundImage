@@ -2,12 +2,16 @@ import axios from 'axios';
 import './css/App.css';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
+import Album from './Album';
 // import InstagramLogin from 'react-instagram-login';
 
 declare var Kakao: any;
 
 export default function App() {
   const [kakaoLogin, setKakaoLogin] = useState<boolean>(false);
+  const [kakaoProfileImg, setKakaoProfileImg] = useState<string>('');
+  const [instaImgs, setInstaImgs] = useState<Array<string>>([]);
+
   const callApi = async () => {
     axios
       .get(
@@ -30,8 +34,10 @@ export default function App() {
     // 초기화를 안 했을 경우에만 초기화 진행
     !Kakao.isInitialized() && Kakao.init(process.env.REACT_APP_KAKAO_API_KEY);
 
+    console.log(Kakao.Auth.getAccessToken());
     if (Kakao.Auth.getAccessToken()) {
       setKakaoLogin(true);
+      getKakaoProfile();
     }
 
     const config = {
@@ -43,9 +49,23 @@ export default function App() {
 
   const handleKakaoLoginSuccess = (res: any) => {
     console.log(res);
-    const nickname = res.profile.properties.nickname;
-    const thumbnailUrl = res.profile.properties.thumbnail_image;
-    const profileUrl = res.profile.properties.profile_image;
+    const nickname = res.properties.nickname;
+    const thumbnailUrl = res.properties.thumbnail_image;
+    const profileUrl = res.properties.profile_image;
+    console.log(nickname, thumbnailUrl, profileUrl);
+    setKakaoProfileImg(profileUrl);
+  };
+
+  const getKakaoProfile = () => {
+    Kakao.API.request({
+      url: '/v2/user/me',
+      success: (res: any) => {
+        handleKakaoLoginSuccess(res);
+      },
+      fail: (error: any) => {
+        console.log(error);
+      },
+    });
   };
 
   const showAgreement = () => {
@@ -60,6 +80,7 @@ export default function App() {
         console.log(`is set?: ${Kakao.Auth.getAccessToken()}`);
         loginResult = true;
         // 성공 사항에 따라 페이지를 수정하기 위한 setState
+        getKakaoProfile();
       },
       fail: function (error: any) {
         console.log(error);
@@ -84,8 +105,8 @@ export default function App() {
   return (
     <div className="App">
       <div className="App-header">KIBackgroundImage</div>
-      <div className="body">
-        <div>
+      <div className="App-body">
+        <div className="button_container">
           <button
             className="kakao_login"
             disabled={kakaoLogin}
@@ -98,6 +119,7 @@ export default function App() {
             인스타그램 로그인하기
           </button>
         </div>
+        <Album kakaoProfileImg={kakaoProfileImg} instaImgs={instaImgs} />
         <button className="kakao_logout" onClick={handleLogout}>
           서비스에서 로그아웃하기
         </button>
