@@ -13,45 +13,31 @@
   color: white;
 }
 
-.App .body {
+.App-body {
   height: calc(100vh - 100px);
-  align-items: center;
-  display: flex;
-  justify-content: center;
   text-align: center;
 }
 
-.body .container {
-  height: 30px;
+.button_container {
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  margin: 5px 0;
-}
-
-.body .container > * {
-  height: 90%;
-}
-
-.body .container label {
+  height: 25%;
   display: flex;
   align-items: center;
-  margin-right: 5px;
+  justify-content: center;
 }
 
-.body .kakao_login {
+.App-body .kakao_login {
   width: 150px;
   height: 30px;
   background-color: #f9e000;
   border: none;
   border-radius: 5px;
-  margin: auto;
+  margin-right: 5px;
 }
 
-.body .instagram_login {
+.App-body .instagram_login {
   display: block;
-  margin: auto;
-  margin-top: 10px;
+  margin-left: 5px;
   background-color: rgb(131, 58, 180);
   width: 150px;
   height: 30px;
@@ -60,7 +46,7 @@
   border-radius: 5px;
 }
 
-.body .kakao_logout {
+.App-body .kakao_logout {
   border: none;
   background-color: transparent;
   border-bottom: 1px solid grey;
