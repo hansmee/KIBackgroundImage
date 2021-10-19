@@ -23,7 +23,6 @@ export default function App() {
   };
 
   useEffect(() => {
-    /*global Kakao*/
     callApi();
   }, []);
 

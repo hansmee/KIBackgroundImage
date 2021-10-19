@@ -1,24 +1,12 @@
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
-declare var Kakao: any;
+declare let Kakao: any;
 
 export default function KakaoLogin(props: any) {
   const { setKakaoProfileImg } = props;
   const [kakaoLogin, setKakaoLogin] = useState<boolean>(false);
 
-  useEffect(() => {
-    /*global Kakao*/
-
-    // 초기화를 안 했을 경우에만 초기화 진행
-    !Kakao.isInitialized() && Kakao.init(process.env.REACT_APP_KAKAO_API_KEY);
-
-    if (Kakao.Auth.getAccessToken()) {
-      getKakaoProfile();
-    }
-  }, []);
-
-  const getKakaoProfile = () => {
+  const getKakaoProfile = useCallback(() => {
     setKakaoLogin(true);
 
     Kakao.API.request({
@@ -30,9 +18,18 @@ export default function KakaoLogin(props: any) {
         console.log(error);
       },
     });
-  };
+  }, [setKakaoLogin, setKakaoProfileImg]);
 
-  const handleLogin = () => {
+  useEffect(() => {
+    // 초기화를 안 했을 경우에만 초기화 진행
+    !Kakao.isInitialized() && Kakao.init(process.env.REACT_APP_KAKAO_API_KEY);
+
+    if (Kakao.Auth.getAccessToken()) {
+      getKakaoProfile();
+    }
+  }, [getKakaoProfile]);
+
+  const handleLogin = useCallback(() => {
     const scope = 'profile_nickname, profile_image';
     Kakao.Auth.login({
       scope,
@@ -45,16 +42,16 @@ export default function KakaoLogin(props: any) {
         console.log(error);
       },
     });
-  };
+  }, [getKakaoProfile]);
 
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     if (!Kakao.Auth.getAccessToken()) return;
 
     Kakao.Auth.logout(() => {
       setKakaoLogin(false);
       setKakaoProfileImg('');
     });
-  };
+  }, [setKakaoLogin, setKakaoProfileImg]);
 
   return (
     <button
