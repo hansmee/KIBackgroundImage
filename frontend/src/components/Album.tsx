@@ -1,4 +1,4 @@
-import './css/Album.css';
+import '../css/Album.css';
 
 export default function Album(props: any) {
   const { kakaoProfileImg, instaImgs } = props;

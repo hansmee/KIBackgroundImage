@@ -1,8 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import KakaoLogin from './KakaoLogin';
-import Instagram from './Instagram';
-import Album from './Album';
+import { KakaoLogin, Instagram, Album } from './components';
 import './css/App.css';
 
 export default function App() {
