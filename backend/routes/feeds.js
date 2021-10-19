@@ -1,8 +1,15 @@
+const crawler = require('../common/crawler');
+
 const router = require('express').Router();
 
-router.get('/:id', (req, res, next) => {
+router.post('/:id', async (req, res) => {
   const { id } = req.params;
-  res.send(`your id is ${id}`);
+  const { username, password } = req.body;
+
+  const feedImages = await crawler(username, password, id);
+  res.status(200).send({
+    images: feedImages,
+  });
 });
 
 module.exports = router;
