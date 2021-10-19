@@ -2,7 +2,6 @@ import '../css/Album.css';
 
 export default function Album(props: any) {
   const { kakaoProfileImg, instaImgs } = props;
-  console.log(kakaoProfileImg, instaImgs);
 
   return (
     <div className="Album">
