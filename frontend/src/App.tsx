@@ -1,19 +1,17 @@
 import { useState } from 'react';
 import { KakaoLogin, Instagram, Album } from './components';
+import Unsplash from './components/Unsplash';
 import './css/App.css';
-
-const getSotrageImgs = (): string[] => {
-  const existedImgs = localStorage.getItem('instaImgs');
-  if (existedImgs !== null) {
-    const existedImgsArr = JSON.parse(existedImgs ?? []);
-    if (Array.isArray(existedImgsArr)) return existedImgsArr;
-  }
-  return [];
-};
+import { getSotrageImgs } from './utils/storageFunctions';
 
 export default function App() {
   const [kakaoProfileImg, setKakaoProfileImg] = useState<string>('');
   const [instaImgs, setInstaImgs] = useState<Array<string>>(getSotrageImgs());
+  const [showUnsplash, setShowUnsplash] = useState<boolean>(false);
+
+  const clickRecommend = () => {
+    setShowUnsplash(true);
+  };
 
   return (
     <div className="App">
@@ -35,9 +33,13 @@ export default function App() {
           <button
             className="result_button"
             disabled={kakaoProfileImg === '' && instaImgs.length === 0}
+            onClick={clickRecommend}
           >
             배경 이미지 추천 받기
           </button>
+          {showUnsplash && (
+            <Unsplash show={showUnsplash} setShow={setShowUnsplash} keyword={'ocean'} />
+          )}
         </main>
       </div>
     </div>
