@@ -10,6 +10,7 @@ const getSotrageImgs = (): string[] => {
   }
   return [];
 };
+
 export default function App() {
   const [kakaoProfileImg, setKakaoProfileImg] = useState<string>('');
   const [instaImgs, setInstaImgs] = useState<Array<string>>(getSotrageImgs());
@@ -31,7 +32,12 @@ export default function App() {
         </header>
         <main className="App-body">
           <Album kakaoProfileImg={kakaoProfileImg} instaImgs={instaImgs} />
-          <button className="result_button">배경 이미지 추천 받기</button>
+          <button
+            className="result_button"
+            disabled={kakaoProfileImg === '' && instaImgs.length === 0}
+          >
+            배경 이미지 추천 받기
+          </button>
         </main>
       </div>
     </div>

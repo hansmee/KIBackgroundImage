@@ -22,13 +22,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
-button {
+button,
+button:hover:disabled {
   font-family: 'Pretendard';
   border: none;
   opacity: 0.8;
   transition: 0.3s;
 }
 
+button:hover:disabled {
+  cursor: not-allowed;
+}
 button:hover {
   opacity: 1;
   cursor: pointer;
