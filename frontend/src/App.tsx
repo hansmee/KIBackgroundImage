@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { KakaoLogin, Instagram, Album } from './components';
+import { Loading } from './components/Loading';
 import Unsplash from './components/Unsplash';
 import './css/App.css';
 import { getSotrageImgs } from './utils/storageFunctions';
@@ -10,8 +11,10 @@ export default function App() {
   const [instaImgs, setInstaImgs] = useState<Array<string>>(getSotrageImgs());
   const [showUnsplash, setShowUnsplash] = useState<boolean>(false);
   const [keyword, setKeyword] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
 
   const clickRecommend = async () => {
+    setLoading(true);
     const images = [];
     images.push(kakaoProfileImg);
 
@@ -25,6 +28,11 @@ export default function App() {
           setKeyword(recommended);
           setShowUnsplash(true);
         }
+        setLoading(false);
+      })
+      .catch((err: any) => {
+        console.log(err);
+        setLoading(false);
       });
   };
 
@@ -56,6 +64,7 @@ export default function App() {
             <Unsplash show={showUnsplash} setShow={setShowUnsplash} keyword={keyword} />
           )}
         </main>
+        {loading ? <Loading isOpen={true} /> : null}
       </div>
     </div>
   );
