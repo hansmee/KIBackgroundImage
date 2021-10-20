@@ -1,73 +1,77 @@
-* {
-  box-sizing: border-box;
+@font-face {
+  font-family: 'Kanginhan';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/naverfont_07@1.0/Kanginhan.woff')
+    format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.App > * {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.App_background {
+  object-fit: cover;
+}
+
+.App_container {
+  z-index: 1;
+  background: linear-gradient(transparent 10%, white, white);
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100px;
+  min-height: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
 }
 
-.App .body {
-  height: calc(100vh - 100px);
-  align-items: center;
+.App-title {
+  font-family: 'Kanginhan';
+  font-size: calc(10px + 7vmin);
+}
+
+.button_container {
+  width: 100%;
+  margin-top: 20px;
   display: flex;
+  align-items: center;
   justify-content: center;
+  font-family: 'Pretendard';
+}
+
+.button_container > button {
+  width: 160px;
+  height: 38px;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: black;
+  font-size: 14px;
+}
+
+.kakao_login {
+  margin-right: 2.5px;
+}
+
+.instagram_login {
+  margin-left: 2.5px;
+}
+
+.App-body {
+  height: calc(100vh - 200px);
   text-align: center;
 }
 
-.body .container {
-  height: 30px;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  margin: 5px 0;
-}
-
-.body .container > * {
-  height: 90%;
-}
-
-.body .container label {
-  display: flex;
-  align-items: center;
-  margin-right: 5px;
-}
-
-.body .kakao_login {
-  width: 150px;
-  height: 30px;
-  background-color: #f9e000;
-  border: none;
-  border-radius: 5px;
-  margin: auto;
-}
-
-.body .instagram_login {
-  display: block;
-  margin: auto;
-  margin-top: 10px;
-  background-color: rgb(131, 58, 180);
-  width: 150px;
-  height: 30px;
+.result_button {
+  position: fixed;
+  left: calc(50% - 162.5px);
+  bottom: 40px;
+  width: 325px;
+  height: 38px;
+  background-color: rgba(0, 0, 0, 0.9);
   color: white;
-  border: none;
-  border-radius: 5px;
-}
-
-.body .kakao_logout {
-  border: none;
-  background-color: transparent;
-  border-bottom: 1px solid grey;
-  padding: 0;
-  position: absolute;
-  bottom: 100px;
-  margin: auto;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  font-size: 16px;
 }
