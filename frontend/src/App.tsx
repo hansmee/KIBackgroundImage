@@ -26,7 +26,7 @@ export default function App() {
           <div className="App-title">KIBackgroundImage</div>
           <div className="button_container">
             <KakaoLogin setKakaoProfileImg={setKakaoProfileImg} />
-            <Instagram setInstaImgs={setInstaImgs} />
+            <Instagram instaImgs={instaImgs} setInstaImgs={setInstaImgs} />
           </div>
         </header>
         <main className="App-body">

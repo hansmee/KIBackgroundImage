@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import '../css/Instagram.css';
 
 export default function Instagram(props: any) {
-  const { setInstaImgs } = props;
+  const { instaImgs, setInstaImgs } = props;
   const [showModal, setShowModal] = useState<boolean>(false);
   const [instaId, setInstaId] = useState<string>('');
   const [instaPw, setInstaPw] = useState<string>('');
@@ -11,6 +11,10 @@ export default function Instagram(props: any) {
 
   const clickModal = () => {
     setShowModal(!showModal);
+  };
+
+  const resetImgs = () => {
+    setInstaImgs([]);
   };
 
   const handleSubmit = async (e: any) => {
@@ -25,7 +29,6 @@ export default function Instagram(props: any) {
         const instaImgs = res.data?.images;
         setInstaImgs(instaImgs);
         localStorage.setItem('instaImgs', JSON.stringify(instaImgs));
-
         setInstaId('');
         setInstaPw('');
         setFeedUser('');
@@ -38,8 +41,8 @@ export default function Instagram(props: any) {
 
   return (
     <>
-      <button className="instagram_login" onClick={clickModal}>
-        인스타그램 피드 가져오기
+      <button className="instagram_login" onClick={instaImgs.length > 0 ? resetImgs : clickModal}>
+        {instaImgs.length > 0 ? '가져온 인스타그램 이미지 초기화하기' : '인스타그램 피드 가져오기'}
       </button>
       <div className={`modal_layer ${!showModal && 'hidden'}`} onClick={clickModal}>
         <div className="modal" onClick={(e: any) => e.stopPropagation()}>
