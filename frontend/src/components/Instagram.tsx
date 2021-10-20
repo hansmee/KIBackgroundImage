@@ -15,6 +15,7 @@ export default function Instagram(props: any) {
 
   const resetImgs = () => {
     setInstaImgs([]);
+    localStorage.setItem('instaImgs', JSON.stringify([]));
   };
 
   const handleSubmit = async (e: any) => {
