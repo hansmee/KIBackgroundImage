@@ -14,6 +14,7 @@ export default function Unsplash({ show, setShow, keyword }: Props) {
   const [target, setTarget] = useState<Element | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [unsplashImgs, setUnsplashImgs] = useState<Array<any>>([]);
+
   const callBackFunction: IntersectionObserverCallback = (
     [entry]: IntersectionObserverEntry[],
     observer: IntersectionObserver
@@ -26,19 +27,15 @@ export default function Unsplash({ show, setShow, keyword }: Props) {
   useIntersectionObserver({ target, onIntersect: callBackFunction });
 
   const getProducts = useCallback(async () => {
-    const uri = `https://api.unsplash.com/search/photos/?client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}&query=${keyword}&page=${pageNum}`;
+    const uri = `https://api.unsplash.com/search/photos/?client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}&query=${keyword}&page=${pageNum}&orientation=landscape`;
     setIsLoading(true);
     await axios
       .get(uri)
       .then((res) => {
-        const totalPage = res.data.total_pages;
-        const totalImgs = res.data.totalImgs;
-        console.log(res.data);
-        const imgs = res.data.results;
         if (pageNum === 1) {
           setUnsplashImgs(res.data.results);
         } else {
-          setUnsplashImgs([...unsplashImgs, ...res.data.results]);
+          setUnsplashImgs((u) => [...u, ...res.data.results]);
         }
       })
       .catch((err) => {
@@ -47,11 +44,11 @@ export default function Unsplash({ show, setShow, keyword }: Props) {
       .finally(() => {
         setIsLoading(false);
       });
-  }, [keyword, pageNum]);
+  }, [keyword, pageNum, setUnsplashImgs]);
 
   useEffect(() => {
     getProducts();
-  }, [keyword, pageNum]);
+  }, [getProducts]);
 
   const downloadImg = (downloadURL: string) => {
     // axios.get(downloadURL).then((res) => {
@@ -71,65 +68,51 @@ export default function Unsplash({ show, setShow, keyword }: Props) {
     <div className="unsplash">
       <div className="unsplash_header">
         <span>Unsplash 추천 이미지</span>
-        <button
-          onClick={() => {
-            setShow(false);
-          }}
-        >
-          X
-        </button>
+        <button onClick={() => setShow(false)}>X</button>
       </div>
 
       <div className="unsplash_img_container">
         <div className="unsplash_img_container_column">
           {unsplashImgs
-            .filter((el, idx) => {
-              return idx % 2 === 0;
-            })
-            .map((img) => {
-              return (
-                <div className="img_container">
-                  <img
-                    key={img.id}
-                    className="unsplash_img"
-                    src={img.urls.regular}
-                    onClick={() =>
-                      window.open(
-                        `${img.links.download_location}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}&force=true`,
-                        '_blank'
-                      )
-                    }
-                  />
-                </div>
-              );
-            })}
+            .filter((_, idx) => idx % 2 === 0)
+            .map((img) => (
+              <div className="img_container" key={img.id}>
+                <img
+                  className="unsplash_img"
+                  src={img.urls.regular}
+                  alt="추천 배경이미지"
+                  onClick={() =>
+                    window.open(
+                      `${img.links.download_location}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}&force=true`,
+                      '_blank'
+                    )
+                  }
+                />
+              </div>
+            ))}
         </div>
         <div className="unsplash_img_container_column">
           {unsplashImgs
-            .filter((el, idx) => {
-              return idx % 2 === 1;
-            })
-            .map((img) => {
-              return (
-                <div className="img_container">
-                  <img
-                    key={img.id}
-                    className="unsplash_img"
-                    src={img.urls.regular}
-                    onClick={() =>
-                      window.open(
-                        `${img.links.download_location}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}&force=true`,
-                        '_blank'
-                      )
-                    }
-                  />
-                </div>
-              );
-            })}
+            .filter((_, idx) => idx % 2 === 1)
+            .map((img) => (
+              <div className="img_container" key={img.id}>
+                <img
+                  className="unsplash_img"
+                  src={img.urls.regular}
+                  alt="추천 배경이미지"
+                  onClick={() =>
+                    window.open(
+                      `${img.links.download_location}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}&force=true`,
+                      '_blank'
+                    )
+                  }
+                />
+              </div>
+            ))}
         </div>
       </div>
       <div className="img_loading" ref={setTarget}>
-        {isLoading && 'LOADING'}
+        {isLoading && 'Loading...'}
       </div>
     </div>
   );

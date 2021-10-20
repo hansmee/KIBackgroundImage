@@ -1,14 +1,11 @@
 .unsplash {
   position: fixed;
-  left: 25px;
-  top: 25px;
-  width: calc(100vw - 50px);
-  height: calc(100vh - 50px);
-  overflow: scroll;
+  width: 100vw;
+  height: 100vh;
+  overflow-y: scroll;
   z-index: 500;
   padding: 10px;
-  background-color: rgb(239, 239, 239);
-  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.9);
 }
 .unsplash_header {
   position: relative;
@@ -42,5 +39,9 @@
 .unsplash .img_loading {
   height: 200px;
   width: 200px;
-  background-color: grey;
+  margin: auto;
+  text-align: center;
+  font-family: 'Kanginhan';
+  font-size: calc(10px + 3vmin);
+  background-color: rgba(255, 255, 255, 0.8);
 }
