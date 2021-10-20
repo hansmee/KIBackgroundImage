@@ -4,7 +4,7 @@ const useIntersectionObserver = ({
   root = null,
   target,
   onIntersect,
-  threshold = 0.5,
+  threshold = 0.2,
   rootMargin = '-30px',
 }: {
   root?: Element | null;
