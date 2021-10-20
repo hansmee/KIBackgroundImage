@@ -1,12 +1,21 @@
 .Album {
-  width: 80%;
+  width: 85%;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   gap: 10px;
   padding: 30px;
   margin: auto;
   border: 2px dashed rgba(0, 0, 0, 0.5);
   background-color: rgba(0, 0, 0, 0.1);
+}
+
+.Album.empty {
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
 }
 
 .Album img {

@@ -50,7 +50,7 @@ export default function Instagram(props: any) {
   return (
     <>
       <button className="instagram_login" onClick={instaImgs.length > 0 ? resetImgs : clickModal}>
-        {instaImgs.length > 0 ? '가져온 인스타그램 이미지 초기화하기' : '인스타그램 피드 가져오기'}
+        {instaImgs.length > 0 ? '가져온 인스타그램 피드 초기화하기' : '인스타그램 피드 가져오기'}
       </button>
       <div className={`modal_layer ${!showModal && 'hidden'}`} onClick={clickModal}>
         <div className="modal" onClick={(e: any) => e.stopPropagation()}>
