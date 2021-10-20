@@ -49,20 +49,6 @@ export default function Unsplash({ setShow, keyword }: Props) {
     getProducts();
   }, [getProducts]);
 
-  const downloadImg = (downloadURL: string) => {
-    // axios.get(downloadURL).then((res) => {
-    //     const url = window.URL.createObjectURL(new Blob([res.data]))
-    //     const link = document.createElement('a')
-    //     link.href = url
-    //     link.setAttribute('download', `${res.data}.jpg`)
-    //     document.body.appendChild(link)
-    //     link.click()
-    // });
-    if (window !== null) {
-      //   window!.open(downloadURL, '_blank').focus();
-    }
-  };
-
   return (
     <div className="unsplash">
       <div className="unsplash_header">
@@ -79,17 +65,8 @@ export default function Unsplash({ setShow, keyword }: Props) {
             .filter((_, idx) => idx % 2 === 0)
             .map((img) => (
               <div className="img_container" key={img.id}>
-                <img
-                  className="unsplash_img"
-                  src={img.urls.regular}
-                  alt="추천 배경이미지"
-                  onClick={() =>
-                    window.open(
-                      `${img.links.download_location}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}&force=true`,
-                      '_blank'
-                    )
-                  }
-                />
+                <img className="unsplash_img" src={img.urls.regular} alt="추천 배경이미지" />
+                <a href={img.links.download_location.replace(/api./g, '') + '&force=true'}>다운</a>
               </div>
             ))}
         </div>
@@ -98,17 +75,8 @@ export default function Unsplash({ setShow, keyword }: Props) {
             .filter((_, idx) => idx % 2 === 1)
             .map((img) => (
               <div className="img_container" key={img.id}>
-                <img
-                  className="unsplash_img"
-                  src={img.urls.regular}
-                  alt="추천 배경이미지"
-                  onClick={() =>
-                    window.open(
-                      `${img.links.download_location}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}&force=true`,
-                      '_blank'
-                    )
-                  }
-                />
+                <img className="unsplash_img" src={img.urls.regular} alt="추천 배경이미지" />
+                <a href={img.links.download_location.replace(/api./g, '') + '&force=true'}>다운</a>
               </div>
             ))}
         </div>
