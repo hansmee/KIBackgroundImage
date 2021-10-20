@@ -61,4 +61,4 @@ def get_result(filename):
 
 
 for idx in range(1, 8):
-    get_result(f'test_imgs/test{idx}.jpg')
+    get_result(f'../model/test_imgs/test{idx}.jpg')
