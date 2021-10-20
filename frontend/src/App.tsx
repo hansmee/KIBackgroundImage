@@ -1,8 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { KakaoLogin, Instagram, Album } from './components';
-import { Loading } from './components/Loading';
-import Unsplash from './components/Unsplash';
+import { KakaoLogin, Instagram, Album, Unsplash, Loading } from './components';
 import './css/App.css';
 import { getSotrageImgs } from './utils/storageFunctions';
 

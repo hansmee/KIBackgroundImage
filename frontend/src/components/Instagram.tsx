@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { Loading } from './Loading';
+import { Loading } from '../components';
 import '../css/Instagram.css';
 
 export default function Instagram(props: any) {
