@@ -33,3 +33,11 @@ button:hover {
   opacity: 1;
   cursor: pointer;
 }
+
+button:focus {
+  outline: none;
+}
+
+.hidden {
+  display: none !important;
+}
