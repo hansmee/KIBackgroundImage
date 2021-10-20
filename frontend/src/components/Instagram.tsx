@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useState } from 'react';
 import '../css/Instagram.css';
 
@@ -10,6 +11,28 @@ export default function Instagram(props: any) {
 
   const clickModal = () => {
     setShowModal(!showModal);
+  };
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+
+    axios
+      .post(`/api/feeds/${feedUser}`, {
+        username: instaId,
+        password: instaPw,
+      })
+      .then((res: any) => {
+        const instaImgs = res.data?.images;
+        setInstaImgs(instaImgs);
+
+        setInstaId('');
+        setInstaPw('');
+        setFeedUser('');
+        setShowModal(false);
+      })
+      .catch((error: any) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -48,7 +71,7 @@ export default function Instagram(props: any) {
               required
               autoComplete="new-password"
             />
-            <button>로그인하고 피드 가져오기</button>
+            <button onClick={handleSubmit}>로그인하고 피드 가져오기</button>
           </form>
         </div>
       </div>
