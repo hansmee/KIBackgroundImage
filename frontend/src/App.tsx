@@ -2,9 +2,17 @@ import { useState } from 'react';
 import { KakaoLogin, Instagram, Album } from './components';
 import './css/App.css';
 
+const getSotrageImgs = (): string[] => {
+  const existedImgs = localStorage.getItem('instaImgs');
+  if (existedImgs !== null) {
+    const existedImgsArr = JSON.parse(existedImgs ?? []);
+    if (Array.isArray(existedImgsArr)) return existedImgsArr;
+  }
+  return [];
+};
 export default function App() {
   const [kakaoProfileImg, setKakaoProfileImg] = useState<string>('');
-  const [instaImgs, setInstaImgs] = useState<Array<string>>([]);
+  const [instaImgs, setInstaImgs] = useState<Array<string>>(getSotrageImgs());
 
   return (
     <div className="App">

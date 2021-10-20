@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import '../css/Instagram.css';
 
 export default function Instagram(props: any) {
@@ -24,6 +24,7 @@ export default function Instagram(props: any) {
       .then((res: any) => {
         const instaImgs = res.data?.images;
         setInstaImgs(instaImgs);
+        localStorage.setItem('instaImgs', JSON.stringify(instaImgs));
 
         setInstaId('');
         setInstaPw('');
