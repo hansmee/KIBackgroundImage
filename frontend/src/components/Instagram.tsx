@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
-import '../css/Instagram.css';
 import { Loading } from './Loading';
+import '../css/Instagram.css';
 
 export default function Instagram(props: any) {
   const { instaImgs, setInstaImgs } = props;
@@ -21,6 +21,7 @@ export default function Instagram(props: any) {
   };
 
   const handleSubmit = async (e: any) => {
+    if (!instaId || !instaPw || !feedUser) return;
     e.preventDefault();
     setLoading(true);
 
@@ -33,6 +34,7 @@ export default function Instagram(props: any) {
         const instaImgs = res.data?.images;
         setInstaImgs(instaImgs);
         localStorage.setItem('instaImgs', JSON.stringify(instaImgs));
+
         setInstaId('');
         setInstaPw('');
         setFeedUser('');
@@ -41,6 +43,7 @@ export default function Instagram(props: any) {
       })
       .catch((error: any) => {
         console.log(error);
+        setLoading(false);
       });
   };
 
