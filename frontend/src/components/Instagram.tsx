@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import '../css/Instagram.css';
+import { Loading } from './Loading';
 
 export default function Instagram(props: any) {
   const { instaImgs, setInstaImgs } = props;
@@ -8,6 +9,7 @@ export default function Instagram(props: any) {
   const [instaId, setInstaId] = useState<string>('');
   const [instaPw, setInstaPw] = useState<string>('');
   const [feedUser, setFeedUser] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
 
   const clickModal = () => {
     setShowModal(!showModal);
@@ -20,6 +22,7 @@ export default function Instagram(props: any) {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    setLoading(true);
 
     axios
       .post(`/api/feeds/${feedUser}`, {
@@ -34,6 +37,7 @@ export default function Instagram(props: any) {
         setInstaPw('');
         setFeedUser('');
         setShowModal(false);
+        setLoading(false);
       })
       .catch((error: any) => {
         console.log(error);
@@ -80,6 +84,7 @@ export default function Instagram(props: any) {
           </form>
         </div>
       </div>
+      {loading ? <Loading isOpen={true} /> : null}
     </>
   );
 }
