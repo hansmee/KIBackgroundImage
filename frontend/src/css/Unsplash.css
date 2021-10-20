@@ -5,20 +5,38 @@
   width: calc(100vw - 50px);
   height: calc(100vh - 50px);
   overflow: scroll;
-  background-color: white;
   z-index: 500;
+  padding: 10px;
+  background-color: rgb(239, 239, 239);
+  border-radius: 4px;
+}
+.unsplash_header {
+  position: relative;
 }
 
+.unsplash_header button {
+  position: absolute;
+  right: 10px;
+}
 .unsplash .unsplash_img_container {
   margin: 20px;
   grid-column-gap: 24px;
   align-items: start;
   display: grid;
-  grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 2fr));
 }
 
+.unsplash .unsplash_img_container .unsplash_img_container_column {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: 40px;
+}
+
+.unsplash .unsplash_img_container .img_container {
+  width: 100%;
+}
 .unsplash .unsplash_img_container img {
-  width: 200px;
+  width: 100%;
 }
 
 .unsplash .img_loading {

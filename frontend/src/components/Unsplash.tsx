@@ -69,23 +69,64 @@ export default function Unsplash({ show, setShow, keyword }: Props) {
 
   return (
     <div className="unsplash">
-      <span>Unsplash 추천 이미지</span>
+      <div className="unsplash_header">
+        <span>Unsplash 추천 이미지</span>
+        <button
+          onClick={() => {
+            setShow(false);
+          }}
+        >
+          X
+        </button>
+      </div>
+
       <div className="unsplash_img_container">
-        {unsplashImgs.map((img) => {
-          return (
-            <img
-              className="unsplash_img"
-              src={img.urls.regular}
-              onClick={() =>
-                window.open(
-                  `${img.links.download_location}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}&force=true`,
-                  '_blank'
-                )
-              }
-              //   onClick={() => downloadImg(img.links.download_location)}
-            />
-          );
-        })}
+        <div className="unsplash_img_container_column">
+          {unsplashImgs
+            .filter((el, idx) => {
+              return idx % 2 === 0;
+            })
+            .map((img) => {
+              return (
+                <div className="img_container">
+                  <img
+                    key={img.id}
+                    className="unsplash_img"
+                    src={img.urls.regular}
+                    onClick={() =>
+                      window.open(
+                        `${img.links.download_location}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}&force=true`,
+                        '_blank'
+                      )
+                    }
+                  />
+                </div>
+              );
+            })}
+        </div>
+        <div className="unsplash_img_container_column">
+          {unsplashImgs
+            .filter((el, idx) => {
+              return idx % 2 === 1;
+            })
+            .map((img) => {
+              return (
+                <div className="img_container">
+                  <img
+                    key={img.id}
+                    className="unsplash_img"
+                    src={img.urls.regular}
+                    onClick={() =>
+                      window.open(
+                        `${img.links.download_location}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}&force=true`,
+                        '_blank'
+                      )
+                    }
+                  />
+                </div>
+              );
+            })}
+        </div>
       </div>
       <div className="img_loading" ref={setTarget}>
         {isLoading && 'LOADING'}
