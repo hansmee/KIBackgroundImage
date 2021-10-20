@@ -13,7 +13,7 @@
   right: 105px;
   top: 25px;
   height: 60px;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.5);
   border-radius: 10px;
   display: flex;
   padding: 0 10px;
@@ -44,7 +44,7 @@
   top: 25px;
   width: 60px;
   height: 60px;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.65);
   border-radius: 10px;
   color: white;
   line-height: 50px;
@@ -82,4 +82,26 @@
   font-family: 'Kanginhan';
   font-size: calc(10px + 3vmin);
   background-color: rgba(255, 255, 255, 0.8);
+}
+
+.unsplash_download {
+  position: absolute;
+  width: fit-content;
+  background-color: white;
+  padding: 5px 15px;
+  border-radius: 5px;
+  transform: translate(calc(50vw - 110px), -45px);
+  opacity: 0.5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.unsplash_download:hover {
+  opacity: 0.95;
+}
+
+.unsplash_download > svg {
+  width: 20px;
+  height: 20px;
 }

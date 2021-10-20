@@ -66,7 +66,14 @@ export default function Unsplash({ setShow, keyword }: Props) {
             .map((img) => (
               <div className="img_container" key={img.id}>
                 <img className="unsplash_img" src={img.urls.regular} alt="추천 배경이미지" />
-                <a href={img.links.download_location.replace(/api./g, '') + '&force=true'}>다운</a>
+                <a
+                  className="unsplash_download"
+                  href={img.links.download_location.replace(/api./g, '') + '&force=true'}
+                >
+                  <svg width="32" height="32" viewBox="0 0 32 32">
+                    <path d="M25.8 15.5l-7.8 7.2v-20.7h-4v20.7l-7.8-7.2-2.7 3 12.5 11.4 12.5-11.4z" />
+                  </svg>
+                </a>
               </div>
             ))}
         </div>
@@ -76,7 +83,14 @@ export default function Unsplash({ setShow, keyword }: Props) {
             .map((img) => (
               <div className="img_container" key={img.id}>
                 <img className="unsplash_img" src={img.urls.regular} alt="추천 배경이미지" />
-                <a href={img.links.download_location.replace(/api./g, '') + '&force=true'}>다운</a>
+                <a
+                  className="unsplash_download"
+                  href={img.links.download_location.replace(/api./g, '') + '&force=true'}
+                >
+                  <svg width="32" height="32" viewBox="0 0 32 32">
+                    <path d="M25.8 15.5l-7.8 7.2v-20.7h-4v20.7l-7.8-7.2-2.7 3 12.5 11.4 12.5-11.4z" />
+                  </svg>
+                </a>
               </div>
             ))}
         </div>
