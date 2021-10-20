@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useState } from 'react';
 import { KakaoLogin, Instagram, Album } from './components';
 import Unsplash from './components/Unsplash';
@@ -8,9 +9,23 @@ export default function App() {
   const [kakaoProfileImg, setKakaoProfileImg] = useState<string>('');
   const [instaImgs, setInstaImgs] = useState<Array<string>>(getSotrageImgs());
   const [showUnsplash, setShowUnsplash] = useState<boolean>(false);
+  const [keyword, setKeyword] = useState<string>('');
 
-  const clickRecommend = () => {
-    setShowUnsplash(true);
+  const clickRecommend = async () => {
+    const images = [];
+    images.push(kakaoProfileImg);
+
+    axios
+      .post('/api/recommend', {
+        images: [...images, ...instaImgs],
+      })
+      .then((res: any) => {
+        const recommended = res.data?.result;
+        if (recommended) {
+          setKeyword(recommended);
+          setShowUnsplash(true);
+        }
+      });
   };
 
   return (
@@ -38,7 +53,7 @@ export default function App() {
             배경 이미지 추천 받기
           </button>
           {showUnsplash && (
-            <Unsplash show={showUnsplash} setShow={setShowUnsplash} keyword={'ocean'} />
+            <Unsplash show={showUnsplash} setShow={setShowUnsplash} keyword={keyword} />
           )}
         </main>
       </div>
