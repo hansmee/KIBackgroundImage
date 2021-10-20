@@ -22,6 +22,10 @@
 }
 
 .App-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   min-height: 200px;
   display: flex;
   flex-direction: column;
@@ -45,7 +49,7 @@
 }
 
 .button_container > button {
-  width: 160px;
+  width: 220px;
   height: 38px;
   background-color: rgba(255, 255, 255, 0.9);
   color: black;
@@ -61,16 +65,19 @@
 }
 
 .App-body {
-  height: calc(100vh - 200px);
+  height: 100vh;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .result_button {
   position: fixed;
-  left: calc(50% - 162.5px);
+  left: calc(50% - 222.5px);
   bottom: 40px;
-  width: 325px;
-  height: 38px;
+  width: 445px;
+  height: 45px;
   background-color: rgba(0, 0, 0, 0.9);
   color: white;
   font-size: 16px;

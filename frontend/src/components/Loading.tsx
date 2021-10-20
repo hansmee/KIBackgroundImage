@@ -4,7 +4,7 @@ type Props = {
   isOpen: boolean;
 };
 
-export function Loading({ isOpen }: Props) {
+export default function Loading({ isOpen }: Props) {
   return (
     <div className="loading">
       <svg

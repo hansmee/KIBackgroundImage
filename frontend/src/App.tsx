@@ -1,6 +1,6 @@
+import axios from 'axios';
 import { useState } from 'react';
-import { KakaoLogin, Instagram, Album } from './components';
-import Unsplash from './components/Unsplash';
+import { KakaoLogin, Instagram, Album, Unsplash, Loading } from './components';
 import './css/App.css';
 import { getSotrageImgs } from './utils/storageFunctions';
 
@@ -8,9 +8,30 @@ export default function App() {
   const [kakaoProfileImg, setKakaoProfileImg] = useState<string>('');
   const [instaImgs, setInstaImgs] = useState<Array<string>>(getSotrageImgs());
   const [showUnsplash, setShowUnsplash] = useState<boolean>(false);
+  const [keyword, setKeyword] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const clickRecommend = () => {
-    setShowUnsplash(true);
+  const clickRecommend = async () => {
+    setLoading(true);
+    const images = [];
+    images.push(kakaoProfileImg);
+
+    axios
+      .post('/api/recommend', {
+        images: [...images, ...instaImgs],
+      })
+      .then((res: any) => {
+        const recommended = res.data?.result;
+        if (recommended) {
+          setKeyword(recommended);
+          setShowUnsplash(true);
+        }
+        setLoading(false);
+      })
+      .catch((err: any) => {
+        console.log(err);
+        setLoading(false);
+      });
   };
 
   return (
@@ -37,10 +58,9 @@ export default function App() {
           >
             배경 이미지 추천 받기
           </button>
-          {showUnsplash && (
-            <Unsplash show={showUnsplash} setShow={setShowUnsplash} keyword={'ocean'} />
-          )}
+          {showUnsplash && <Unsplash setShow={setShowUnsplash} keyword={keyword} />}
         </main>
+        {loading ? <Loading isOpen={true} /> : null}
       </div>
     </div>
   );
