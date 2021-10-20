@@ -58,9 +58,7 @@ export default function App() {
           >
             배경 이미지 추천 받기
           </button>
-          {showUnsplash && (
-            <Unsplash show={showUnsplash} setShow={setShowUnsplash} keyword={keyword} />
-          )}
+          {showUnsplash && <Unsplash setShow={setShowUnsplash} keyword={keyword} />}
         </main>
         {loading ? <Loading isOpen={true} /> : null}
       </div>

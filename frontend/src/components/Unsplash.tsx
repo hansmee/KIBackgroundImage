@@ -4,12 +4,11 @@ import useIntersectionObserver from '../hooks/useIntersectionObserver';
 import '../css/Unsplash.css';
 
 type Props = {
-  show: boolean;
   setShow: Dispatch<SetStateAction<boolean>>;
   keyword: string;
 };
 
-export default function Unsplash({ show, setShow, keyword }: Props) {
+export default function Unsplash({ setShow, keyword }: Props) {
   const [pageNum, setPageNum] = useState<number>(1);
   const [target, setTarget] = useState<Element | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -67,9 +66,12 @@ export default function Unsplash({ show, setShow, keyword }: Props) {
   return (
     <div className="unsplash">
       <div className="unsplash_header">
-        <span>Unsplash 추천 이미지</span>
-        <button onClick={() => setShow(false)}>X</button>
+        <div className="unsplash_keyword">{keyword}</div>
+        <div className="by_unsplash">by Unsplash.</div>
       </div>
+      <button className="unsplash_close_btn" onClick={() => setShow(false)}>
+        X
+      </button>
 
       <div className="unsplash_img_container">
         <div className="unsplash_img_container_column">
