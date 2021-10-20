@@ -23,12 +23,13 @@ export default function Instagram(props: any) {
             <span>인스타그램 로그인</span>
             <button onClick={clickModal}>X</button>
           </section>
-          <section className="modal_body">
+          <form className="modal_body">
             <input
               value={instaId}
               onChange={(e: any) => setInstaId(e.target.value)}
               placeholder="아이디"
               type="text"
+              required
               autoComplete="new-password"
             />
             <input
@@ -36,6 +37,7 @@ export default function Instagram(props: any) {
               onChange={(e: any) => setInstaPw(e.target.value)}
               placeholder="비밀번호"
               type="password"
+              required
               autoComplete="new-password"
             />
             <input
@@ -43,10 +45,11 @@ export default function Instagram(props: any) {
               onChange={(e: any) => setFeedUser(e.target.value)}
               placeholder="가져올 인스타그램 피드 사용자"
               type="text"
+              required
               autoComplete="new-password"
             />
             <button>로그인하고 피드 가져오기</button>
-          </section>
+          </form>
         </div>
       </div>
     </>
